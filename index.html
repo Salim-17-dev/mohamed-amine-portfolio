@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0A0D12" />
+
+    <title>Mohamed Amine Salim — Développeur Web Full-Stack</title>
+    <meta
+      name="description"
+      content="Mohamed Amine Salim, développeur web full-stack basé à Casablanca. Conception et développement d'applications React / Laravel, de plateformes de gestion et de solutions e-commerce."
+    />
+    <meta name="author" content="Mohamed Amine Salim" />
+    <link rel="canonical" href="https://mohamedaminesalim.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mohamed Amine Salim" />
+    <meta property="og:title" content="Mohamed Amine Salim — Développeur Web Full-Stack" />
+    <meta
+      property="og:description"
+      content="Applications web modernes, plateformes de gestion et solutions e-commerce — du frontend au backend."
+    />
+    <meta property="og:url" content="https://mohamedaminesalim.com/" />
+    <meta property="og:image" content="https://mohamedaminesalim.com/og-cover.jpg" />
+    <meta property="og:locale" content="fr_FR" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mohamed Amine Salim — Développeur Web Full-Stack" />
+    <meta
+      name="twitter:description"
+      content="Applications web modernes, plateformes de gestion et solutions e-commerce — du frontend au backend."
+    />
+    <meta name="twitter:image" content="https://mohamedaminesalim.com/og-cover.jpg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html, body { margin: 0; min-height: 100%; background: #080d1a; }
+      #boot-screen {
+        position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center;
+        background: #080d1a; color: #f8fafc; transition: opacity .35s ease, visibility .35s ease;
+      }
+      #boot-screen.is-hidden { opacity: 0; visibility: hidden; }
+      .boot-content { display: grid; justify-items: center; gap: 16px; }
+      .boot-mark { width: 58px; height: 58px; padding: 4px; border: 1px solid #475569; border-radius: 50%; background: #111827; box-shadow: 0 0 0 5px #0b1020; }
+      .boot-mark img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: top; }
+      .boot-line { width: 112px; height: 1px; overflow: hidden; background: #1e293b; }
+      .boot-line::after { display: block; width: 42%; height: 100%; background: #e5e7eb; content: ''; animation: boot-load 1s ease-in-out infinite; }
+      .boot-text { font: 11px/1.2 monospace; letter-spacing: .18em; text-transform: uppercase; color: #94a3b8; }
+      @keyframes boot-load { from { transform: translateX(-110%); } to { transform: translateX(270%); } }
+    </style>
+  </head>
+  <body>
+    <div id="boot-screen" aria-label="Chargement du portfolio">
+      <div class="boot-content">
+        <div class="boot-mark"><img src="/src/components/image/PHOTO.jpeg" alt="Mohamed Amine Salim" /></div>
+        <div class="boot-line"></div>
+        <div class="boot-text">Chargement</div>
+      </div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
