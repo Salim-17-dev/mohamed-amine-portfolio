@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: '#projects', label: 'Projets' },
   { href: '#experience', label: 'Expérience' },
   { href: '#certs', label: 'Certs' },
+  { href: '#services', label: 'Services' },
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -67,9 +68,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <a href="#contact" className="hidden md:inline-flex btn-secondary !py-2 !px-4 text-xs">
-          Me contacter
-        </a>
+
 
         <button
           type="button"

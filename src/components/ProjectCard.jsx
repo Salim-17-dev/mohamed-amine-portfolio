@@ -20,6 +20,7 @@ export default function ProjectCard({ project }) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const accent = ACCENTS[project.accent] ?? ACCENTS.brass;
+  const accentColor = project.accent === 'teal' ? '#9CA3AF' : '#E5E7EB';
   const list = project.roles ?? project.categories;
   const listLabel = project.roles ? "Rôles utilisateurs" : 'Catégories';
   const gallery = project.images ?? (project.image ? [{ label: 'Aperçu', src: project.image }] : []);
@@ -29,7 +30,29 @@ export default function ProjectCard({ project }) {
   const showNextImage = () => setActiveImageIndex((index) => (index + 1) % gallery.length);
 
   return (
-    <article className={`group rounded-sm border border-ink-800 bg-ink-900/30 transition-colors ${accent.ring}`}>
+    <motion.article
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -4, transition: { duration: 0.28 } }}
+      className={`group relative overflow-hidden rounded-sm border border-ink-800 bg-ink-900/30 transition-colors ${accent.ring}`}
+    >
+      {/* Hover glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+        style={{ boxShadow: `inset 0 0 0 1px ${accentColor}22, 0 0 40px ${accentColor}08` }}
+      />
+      {/* Shimmer top line */}
+      <motion.div
+        aria-hidden="true"
+        initial={{ scaleX: 0, opacity: 0 }}
+        whileHover={{ scaleX: 1, opacity: 1 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="absolute top-0 left-0 z-10 h-px w-full origin-left"
+        style={{ background: `linear-gradient(to right, ${accentColor}cc, transparent)` }}
+      />
       <div className="grid gap-0 lg:grid-cols-12">
         {/* Visual placeholder */}
         <div className="lg:col-span-5 relative aspect-[4/3] lg:aspect-auto overflow-hidden border-b border-ink-800 lg:border-b-0 lg:border-r bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.04),transparent_60%)]">
@@ -87,10 +110,17 @@ export default function ProjectCard({ project }) {
           <p className="mt-4 leading-relaxed text-ink-300">{project.description}</p>
 
           <div className="mt-5 flex flex-wrap gap-2">
-            {project.stack.slice(0, 6).map((t) => (
-              <span key={t} className="tag">
+            {project.stack.slice(0, 6).map((t, ti) => (
+              <motion.span
+                key={t}
+                initial={{ opacity: 0, scale: 0.85 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: ti * 0.05 }}
+                className="tag hover:border-current hover:text-brass transition-colors"
+              >
                 {t}
-              </span>
+              </motion.span>
             ))}
             {project.stack.length > 6 && (
               <span className="tag">+{project.stack.length - 6}</span>
@@ -167,69 +197,84 @@ export default function ProjectCard({ project }) {
       </div>
 
       <AnimatePresence>
+        {/* ── IMAGE LIGHTBOX / GALLERY MODAL ── */}
         {isGalleryOpen && activeImage?.src && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-ink-950/90 p-4 backdrop-blur-sm md:p-10"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-ink-950/95 p-4 backdrop-blur-md md:p-8"
             role="dialog"
             aria-modal="true"
             aria-label={`Galerie ${project.name}`}
             onClick={() => setIsGalleryOpen(false)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 12 }}
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 12 }}
-              transition={{ duration: 0.22 }}
-              className="relative flex max-h-full w-full max-w-6xl items-center justify-center"
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              transition={{ duration: 0.2 }}
+              className="relative flex flex-col max-h-[92vh] w-full max-w-5xl overflow-hidden rounded-md border border-ink-800 bg-ink-900/95 p-4 shadow-2xl"
               onClick={(event) => event.stopPropagation()}
             >
-              <img
-                src={activeImage.src}
-                alt={`${activeImage.label} — ${project.name}`}
-                className="max-h-[82vh] max-w-full rounded-sm border border-ink-700 object-contain shadow-2xl"
-              />
+              {/* Modal Top Header Bar */}
+              <div className="flex w-full items-center justify-between border-b border-ink-800 pb-3 mb-2">
+                <div className="flex items-center gap-3">
+                  <span className="font-mono text-xs font-semibold uppercase tracking-widest text-brass">
+                    {project.name}
+                  </span>
+                  <span className="text-ink-600" aria-hidden="true">•</span>
+                  <span className="font-mono text-xs uppercase tracking-wider text-ink-300">
+                    {activeImage.label}
+                  </span>
+                  <span className="rounded-full bg-ink-800 px-2 py-0.5 font-mono text-[10px] text-ink-400">
+                    {activeImageIndex + 1} / {gallery.length}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsGalleryOpen(false)}
+                  className="rounded-sm border border-ink-700 bg-ink-800/80 p-1.5 text-ink-300 transition-colors hover:border-ink-500 hover:bg-ink-700 hover:text-paper"
+                  aria-label="Fermer la galerie"
+                >
+                  <X size={18} />
+                </button>
+              </div>
 
-              <button
-                type="button"
-                onClick={() => setIsGalleryOpen(false)}
-                className="absolute right-0 top-0 -translate-y-12 rounded-sm border border-ink-700 bg-ink-950/90 p-2 text-ink-200 transition-colors hover:border-ink-500 hover:text-paper"
-                aria-label="Fermer la galerie"
-              >
-                <X size={18} />
-              </button>
+              {/* Modal Image Area */}
+              <div className="relative flex flex-1 items-center justify-center overflow-hidden py-2">
+                <img
+                  src={activeImage.src}
+                  alt={`${activeImage.label} — ${project.name}`}
+                  className="max-h-[76vh] w-auto max-w-full rounded-sm border border-ink-800 object-contain shadow-xl"
+                />
 
-              {gallery.length > 1 && (
-                <>
-                  <button
-                    type="button"
-                    onClick={showPreviousImage}
-                    className="absolute left-0 -translate-x-1/2 rounded-full border border-ink-700 bg-ink-950/90 p-3 text-ink-200 transition-colors hover:border-ink-500 hover:text-paper md:-translate-x-16"
-                    aria-label="Image précédente"
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={showNextImage}
-                    className="absolute right-0 translate-x-1/2 rounded-full border border-ink-700 bg-ink-950/90 p-3 text-ink-200 transition-colors hover:border-ink-500 hover:text-paper md:translate-x-16"
-                    aria-label="Image suivante"
-                  >
-                    <ChevronRight size={24} />
-                  </button>
-                </>
-              )}
-
-              <p className="absolute bottom-0 translate-y-9 font-mono text-xs uppercase tracking-[0.16em] text-ink-300">
-                {activeImage.label} · {activeImageIndex + 1} / {gallery.length}
-              </p>
+                {gallery.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={showPreviousImage}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-ink-700 bg-ink-950/80 p-2.5 text-paper transition-all hover:border-brass hover:bg-brass hover:text-ink-950 shadow-lg"
+                      aria-label="Image précédente"
+                    >
+                      <ChevronLeft size={22} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={showNextImage}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-ink-700 bg-ink-950/80 p-2.5 text-paper transition-all hover:border-brass hover:bg-brass hover:text-ink-950 shadow-lg"
+                      aria-label="Image suivante"
+                    >
+                      <ChevronRight size={22} />
+                    </button>
+                  </>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </article>
+    </motion.article>
   );
 }
 

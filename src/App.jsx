@@ -18,9 +18,9 @@ export default function App() {
         <About />
         <StackDiagram />
         <Projects />
-        <Services />
         <Experience />
         <Certs />
+        <Services />
         <Contact />
       </main>
       <Footer />

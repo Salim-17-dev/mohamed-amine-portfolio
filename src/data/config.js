@@ -9,11 +9,11 @@ export const profile = {
   name: 'Mohamed Amine Salim',
   title: 'Développeur Web Full-Stack',
   location: 'Casablanca, Maroc',
-  status: 'Jeune diplômé en Développement Digital',
+  status: 'Jeune diplômé en Développement Digital · Option Web Full Stack',
   taglineFr:
-    "Je conçois et développe des applications web modernes, du frontend au backend jusqu'à la base de données, avec une attention particulière à la performance et à l’expérience utilisateur.",
+    "Technicien Spécialisé en Développement Digital, option Web Full Stack. Je conçois et développe des applications web complètes — frontend, backend et base de données — avec React.js, Laravel et MySQL.",
   taglineEn:
-    'Building modern web applications from frontend to backend and database.',
+    'Specialized Technician in Digital Development — Web Full Stack. I build complete web applications from frontend to backend.',
 };
 
 export const contact = {
@@ -60,20 +60,54 @@ export const education = [
 export const experience = [
   {
     company: 'SPS Technologie — Casablanca',
-    role: 'Stagiaire Développeur Full Stack',
+    role: 'Stagiaire Développeur Full Stack — GestionRH',
+    badge: 'Stage PFE',
     period: 'Avril 2026',
     missions: [
-      'Développement d\'une application de gestion des ressources humaines.',
+      "Développement d'une application de gestion des ressources humaines (GestionRH).",
       'Conception du frontend avec React.js.',
       'Développement du backend avec Laravel.',
-      'Création et consommation d\'API REST.',
+      "Création et consommation d'API REST.",
       'Intégration Frontend / Backend.',
       'Gestion de base de données MySQL.',
       'Implémentation des opérations CRUD.',
-      'Participation au développement et aux tests de l\'application.',
+      "Participation au développement et aux tests de l'application.",
     ],
     technologies: ['React.js', 'Bootstrap', 'Laravel', 'MySQL', 'Git', 'GitHub', 'VS Code'],
     methodology: 'Agile',
   },
-  
+  {
+    company: 'Projet Client / Indépendant',
+    role: 'Développeur Full-Stack — ResidenSpace',
+    badge: 'Freelance',
+    period: '2025 — 2026',
+    missions: [
+      "Conception et développement complet d'une plateforme de gestion de copropriétés.",
+      "Architecture multi-rôles : Administrateur, Syndic, Propriétaire.",
+      "Frontend React.js avec Redux Toolkit, Tailwind CSS et gestion d'état global.",
+      "Backend Laravel avec API REST sécurisée via Laravel Sanctum.",
+      "Modules : gestion des appartements, charges, paiements, réclamations, assemblées.",
+      "Trésorerie, rapports mensuels, journal d'activité et tableaux de bord par rôle.",
+      "Dockerisation de l'environnement de développement.",
+    ],
+    technologies: ['React.js', 'Laravel', 'MySQL', 'Tailwind CSS', 'Redux Toolkit', 'Laravel Sanctum', 'Docker', 'Git'],
+    methodology: 'Agile',
+  },
+  {
+    company: 'Projet Client / Indépendant',
+    role: 'Développeur Full-Stack — Luxe by Salim',
+    badge: 'Freelance',
+    period: 'Mars 2025 — Août 2025',
+    missions: [
+      "Conception et développement d'une boutique e-commerce mode & accessoires.",
+      "Frontend React.js + Vite avec routing, gestion des états et design responsive.",
+      "Backend Supabase : PostgreSQL, Auth, Storage, Edge Functions.",
+      "Guest Checkout — commande sans création de compte requise.",
+      "Système de commande directe via WhatsApp et reçus PDF par email (Resend).",
+      "Dashboard Admin complet : produits, catégories, commandes, stocks.",
+      "Dark / Light Mode et déploiement sur Vercel.",
+    ],
+    technologies: ['React.js', 'Vite', 'Supabase', 'PostgreSQL', 'Resend', 'WhatsApp', 'Vercel', 'Git'],
+    methodology: null,
+  },
 ];
