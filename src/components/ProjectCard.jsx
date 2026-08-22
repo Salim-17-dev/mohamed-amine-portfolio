@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, Github, ImageOff, X } from 'lucide-react';
 
@@ -28,6 +28,17 @@ export default function ProjectCard({ project }) {
   const showPreviousImage = () =>
     setActiveImageIndex((index) => (index - 1 + gallery.length) % gallery.length);
   const showNextImage = () => setActiveImageIndex((index) => (index + 1) % gallery.length);
+
+  useEffect(() => {
+    if (!isGalleryOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setIsGalleryOpen(false);
+      if (e.key === 'ArrowLeft') showPreviousImage();
+      if (e.key === 'ArrowRight') showNextImage();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isGalleryOpen, gallery.length]);
 
   return (
     <motion.article
@@ -82,17 +93,21 @@ export default function ProjectCard({ project }) {
             CASE {project.caseNumber}
           </span>
           {gallery.length > 1 && (
-            <div className="absolute inset-x-4 bottom-4 flex flex-wrap gap-1.5" role="tablist" aria-label={`Captures de ${project.name}`}>
+            <div
+              className="absolute inset-x-3 bottom-3 flex flex-wrap gap-1.5 max-h-24 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              role="tablist"
+              aria-label={`Captures de ${project.name}`}
+            >
               {gallery.map((image, index) => (
                 <button
-                  key={image.label}
+                  key={`${image.label}-${index}`}
                   type="button"
                   role="tab"
                   aria-selected={activeImageIndex === index}
                   onClick={() => setActiveImageIndex(index)}
                   className={`rounded-sm border px-2 py-1 font-mono text-[10px] uppercase tracking-wide backdrop-blur transition-colors ${
                     activeImageIndex === index
-                      ? 'border-ink-300 bg-ink-950/90 text-paper'
+                      ? 'border-ink-300 bg-ink-950/90 text-paper shadow-sm'
                       : 'border-ink-700 bg-ink-950/70 text-ink-400 hover:border-ink-500 hover:text-ink-200'
                   }`}
                 >

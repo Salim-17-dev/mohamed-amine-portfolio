@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, MessageCircle, Youtube } from 'lucide-react';
-import { profile, links, cv } from '../data/config.js';
+import { Eye ,ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, Phone, Youtube } from 'lucide-react';
+import { profile, links, contact, cv } from '../data/config.js';
 import profilePhoto from './image/PHOTO.jpeg';
 
 /* ─── animation variants ─── */
@@ -231,7 +231,7 @@ export default function Hero() {
                   <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </motion.a>
 
-                {cv.url ? (
+                {/* {cv.url ? (
                   <motion.a
                     href={cv.url}
                     download
@@ -245,13 +245,35 @@ export default function Hero() {
                   </motion.a>
                 ) : (
                   <span className="btn-secondary cursor-not-allowed opacity-60" title="CV disponible prochainement">
-                    CV — bientôt disponible
+                    CV - bientôt disponible
+                  </span>
+                )} */}
+                {cv.url ? (
+                  <motion.a
+                    href={cv.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary !px-5 sm:!px-6"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <Eye size={16} />
+                      Voir mon CV
+                  </motion.a>
+                ) : (
+                  <span
+                    className="btn-secondary cursor-not-allowed opacity-60"
+                    title="CV disponible prochainement"
+                  >
+                    CV - bientôt disponible
                   </span>
                 )}
               </div>
 
               {/* Social links */}
-              <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-ink-800 pt-5">
+
+              {/* <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-ink-800 pt-5">
                 <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-500">Me retrouver</span>
                 <motion.div
                   className="flex items-center gap-2"
@@ -263,7 +285,7 @@ export default function Hero() {
                     { href: links.githubUrl,    label: 'GitHub',    hover: 'hover:border-ink-300 hover:text-paper',        icon: <Github size={16} /> },
                     { href: links.linkedinUrl,  label: 'LinkedIn',  hover: 'hover:border-[#0A66C2]/60 hover:text-[#0A66C2]',icon: <Linkedin size={16} /> },
                     { href: links.emailHref,    label: 'Email',     hover: 'hover:border-brass hover:text-brass',           icon: <Mail size={16} /> },
-                    { href: links.whatsappHref, label: 'WhatsApp',  hover: 'hover:border-[#25D366]/60 hover:text-[#25D366]',icon: <MessageCircle size={16} /> },
+                    { href: `tel:${contact.whatsapp}`, label: 'Appeler', hover: 'hover:border-[#3DAF7B]/60 hover:text-[#3DAF7B]', icon: <Phone size={16} /> },
                     { href: links.youtubeUrl,   label: 'YouTube',   hover: 'hover:border-[#FF0000]/60 hover:text-[#FF0000]',icon: <Youtube size={16} /> },
                   ].map((s) => (
                     <motion.a
@@ -278,6 +300,61 @@ export default function Hero() {
                     >
                       {s.icon}
                     </motion.a>
+                  ))}
+                </motion.div>
+              </div> */}
+              <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-ink-800 pt-5">
+                <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-500">
+                  Me retrouver
+                </span>
+
+                <motion.div
+                  className="flex items-center gap-2"
+                  variants={{
+                    hidden: {},
+                    show: {
+                      transition: {
+                        staggerChildren: 0.07,
+                        delayChildren: 0.55,
+                      },
+                    },
+                  }}
+                  initial="hidden"
+                  animate="show"
+                >
+                  {[
+                    { href: links.githubUrl, label: 'GitHub', hover: 'hover:border-ink-300 hover:text-paper', icon: <Github size={16} /> },
+                    { href: links.linkedinUrl, label: 'LinkedIn', hover: 'hover:border-[#0A66C2]/60 hover:text-[#0A66C2]', icon: <Linkedin size={16} /> },
+                    { href: links.emailHref, label: 'Email', hover: 'hover:border-brass hover:text-brass', icon: <Mail size={16} /> },
+                    { href: `tel:${contact.whatsapp}`, label: 'Appeler', hover: 'hover:border-[#3DAF7B]/60 hover:text-[#3DAF7B]', icon: <Phone size={16} /> },
+                    { label: 'YouTube', icon: <Youtube size={16} />, disabled: true },
+                  ].map((s) => (
+                    <motion.div
+                      key={s.label}
+                      variants={socialItem}
+                    >
+                      {s.disabled ? (
+                        <div
+                          aria-label="YouTube - Bientôt"
+                          aria-disabled="true"
+                          title="Bientôt disponible"
+                          className="flex h-9 w-9 cursor-not-allowed items-center justify-center rounded-sm border border-ink-800 text-ink-500 opacity-40"
+                        >
+                          {s.icon}
+                        </div>
+                      ) : (
+                        <motion.a
+                          href={s.href}
+                          target={s.href.startsWith('http') ? '_blank' : undefined}
+                          rel={s.href.startsWith('http') ? 'noreferrer' : undefined}
+                          aria-label={s.label}
+                          whileHover={{ y: -3, scale: 1.1, transition: { duration: 0.18 } }}
+                          className={`flex h-9 w-9 items-center justify-center rounded-sm border border-ink-700 text-ink-400 transition-colors duration-200 ${s.hover}`}
+                        >
+                          {s.icon}
+                        </motion.a>
+                      )}
+                    </motion.div>
                   ))}
                 </motion.div>
               </div>

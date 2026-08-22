@@ -64,15 +64,26 @@ export default function StackDiagram() {
           className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"
         >
           <div>
-            <p className="eyebrow">01 — Expertise</p>
+            <p className="eyebrow flex items-center gap-4">
+              <motion.span
+                className="block shrink-0 bg-brass"
+                style={{ height: '1px' }}
+                initial={{ width: 0 }}
+                animate={inView ? { width: 36 } : {}}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.1,
+                  ease: [0.22, 1, 0.36, 1]
+                }}
+              />
+              01 — Expertise</p>
             <h2 className="mt-4 text-3xl font-semibold text-paper md:text-4xl">
-              Skills &amp;{' '}
               <span className="relative inline-block">
-                Compétences
+                Compétences techniques
                 <motion.span
                   initial={{ scaleX: 0 }}
-                  animate={inView ? { scaleX: 1 } : {}}
-                  transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  animate={inView ? { scaleX: 1 } : {}} 
+                  transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
                   className="absolute -bottom-1 left-0 h-px w-full origin-left bg-gradient-to-r from-[#A78BFA] to-transparent"
                 />
               </span>
@@ -178,7 +189,7 @@ export default function StackDiagram() {
             transition={{ duration: 0.5 }}
             className="eyebrow text-center"
           >
-            Technologies I Work With
+            Technologies maitrisées
           </motion.p>
 
           <div className="mt-6 flex flex-wrap justify-center gap-3">
