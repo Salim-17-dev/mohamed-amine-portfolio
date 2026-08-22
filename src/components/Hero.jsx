@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, MessageCircle, Youtube } from 'lucide-react';
-import { profile, links, cv } from '../data/config.js';
+import { ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, Phone, Youtube } from 'lucide-react';
+import { profile, links, contact, cv } from '../data/config.js';
 import profilePhoto from './image/PHOTO.jpeg';
 
 /* ─── animation variants ─── */
@@ -263,7 +263,7 @@ export default function Hero() {
                     { href: links.githubUrl,    label: 'GitHub',    hover: 'hover:border-ink-300 hover:text-paper',        icon: <Github size={16} /> },
                     { href: links.linkedinUrl,  label: 'LinkedIn',  hover: 'hover:border-[#0A66C2]/60 hover:text-[#0A66C2]',icon: <Linkedin size={16} /> },
                     { href: links.emailHref,    label: 'Email',     hover: 'hover:border-brass hover:text-brass',           icon: <Mail size={16} /> },
-                    { href: links.whatsappHref, label: 'WhatsApp',  hover: 'hover:border-[#25D366]/60 hover:text-[#25D366]',icon: <MessageCircle size={16} /> },
+                    { href: `tel:${contact.whatsapp}`, label: 'Appeler', hover: 'hover:border-[#3DAF7B]/60 hover:text-[#3DAF7B]', icon: <Phone size={16} /> },
                     { href: links.youtubeUrl,   label: 'YouTube',   hover: 'hover:border-[#FF0000]/60 hover:text-[#FF0000]',icon: <Youtube size={16} /> },
                   ].map((s) => (
                     <motion.a
