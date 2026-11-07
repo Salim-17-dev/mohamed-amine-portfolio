@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
-import { Eye ,ArrowDown, ArrowUpRight, Download, Github, Linkedin, Mail, Phone, Youtube } from 'lucide-react';
+import { Eye, ArrowDown, ArrowUpRight, Github, Linkedin, Mail, Phone, Youtube } from 'lucide-react';
 import { profile, links, contact, cv } from '../data/config.js';
 import profilePhoto from './image/PHOTO.jpeg';
 
