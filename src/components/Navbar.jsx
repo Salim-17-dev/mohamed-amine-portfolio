@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import profilePhoto from './image/PHOTO.jpeg';
+import profilePhoto_1 from './image/PHOTO_1.jpeg';
 
 const NAV_ITEMS = [
   { href: '#top', label: 'Home' },
@@ -45,7 +46,7 @@ export default function Navbar() {
       <nav className="container-content flex h-16 items-center justify-between">
         <a href="#top" className="flex items-center gap-2 font-display text-sm font-semibold tracking-tight text-paper">
           <img
-            src={profilePhoto}
+            src={profilePhoto_1}
             alt="Mohamed Amine Salim"
             className="h-9 w-9 rounded-full border border-ink-500 object-cover"
           />

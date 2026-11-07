@@ -40,20 +40,20 @@ export const cv = {
   language: 'Français',
 };
 
-export const education = [
-  {
-    degree: 'Technicien Spécialisé — Développement Digital',
-    detail: 'Option Web Full Stack',
-    institution: 'OFPPT',
-    period: '2024 — 2026',
-  },
-  {
-    degree: 'Baccalauréat — Sciences Physiques',
-    detail: null,
-    institution: 'Lycée Idriss El Harti',
-    period: '2024',
-  },
-];
+// export const education = [
+//   {
+//     degree: 'Technicien Spécialisé — Développement Digital',
+//     detail: 'Option Web Full Stack',
+//     institution: 'OFPPT',
+//     period: '2024 — 2026',
+//   },
+//   {
+//     degree: 'Baccalauréat — Sciences Physiques',
+//     detail: null,
+//     institution: 'Lycée Idriss El Harti',
+//     period: '2024',
+//   },
+// ];
 
 // Fill in period + missions once confirmed. Leaving a field null hides it
 // gracefully in the UI rather than showing an invented value.
